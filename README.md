@@ -16,8 +16,7 @@ Make sure you have the following installed on your local machine:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-repo/project-name.git
-   cd project-name
+   git clone https://github.com/tommy199469/basic-cms-api-postgreSQL-docker-compose
    ```
 
 2. **Environment Variables**
