@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: my_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./api
+    container_name: api_service
+    restart: unless-stopped
+    environment:
+      - SERVER_PORT=8002
+      - SERVER_URL=http://localhost
+      - JWT_SECRET=cf42xd8gdFyJ5DRhD
+      - DB_HOST=postgres
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "8002:8002"
+    depends_on:
+      - postgres
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: dashboard_service
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_ENDPOINT=http://localhost:8002/api/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+    driver: local

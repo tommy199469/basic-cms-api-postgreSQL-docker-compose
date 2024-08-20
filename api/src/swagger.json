@@ -1,0 +1,55 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"version": "0.0.1",
+		"title": "Sample",
+		"description": "Sample API Server",
+		"license": {
+			"name": "MIT",
+			"url": "https://opensource.org/licenses/MIT"
+		}
+	},
+	"host": "localhost:4000",
+	"basePath": "/api",
+	"consumes": [ "application/json" ],
+	"produces": [ "application/json" ],
+	"tags": [
+		{
+			"name": "Server",
+			"description": "API on server status"
+		}
+	],
+	"schemes": [ "http" ],
+	"paths": {
+		"/api/health": {
+			"get": {
+				"tags": [ "Server" ],
+				"summary": "Check Health on Server",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/Server"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Server": {
+			"properties": {
+				"status": {
+					"type": "string"
+				},
+				"code": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
