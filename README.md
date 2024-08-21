@@ -31,10 +31,22 @@ Make sure you have the following installed on your local machine:
     DB_PASSWORD=
    ```
 
+   Create a .env file in the dashboard path:
+
+   ```
+   NEXT_PUBLIC_API_ENDPOINT=http://localhost:8002/api/
+   ```
+
 3. **Build and start the service**
 
    ```
-    docker-compose up
+   docker-compose up -d
+   ```
+
+   if you want to remove the data in database
+
+   ```
+   docker volume rm <project_name>_postgres_data
    ```
 
 4. **Accessing the Services:**
